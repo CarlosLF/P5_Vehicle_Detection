@@ -21,10 +21,10 @@ The goals / steps of this project are the following:
 [image2]: ./examples/not_car.png
 [image3]: ./examples/hog.png
 [image4]: ./examples/sliding_windows.png
-[image4]: ./examples/sliding_window.png
-[image5]: ./examples/heat.png
-[image6]: ./examples/labels_map.png
-[image7]: ./examples/output_bboxes.png
+[image5]: ./examples/sliding_window.png
+[image6]: ./examples/heat.png
+[image7]: ./examples/labels_map.png
+[image8]: ./examples/output_bboxes.png
 [video1]: ./project_video.mp4
 
 ## [Rubric](https://review.udacity.com/#!/rubrics/513/view) Points
@@ -132,7 +132,7 @@ Here's an example result showing the heatmap from a series of frames of video, t
 
 ### Here are three frames and their corresponding heatmaps:
 
-![alt text][image5]
+![alt text][image6]
 
 Is important to note that in the detect_vehicles2 function, the heat of the last 10 frames is stored in a deque, and the final hear is computed with the mean of the heats.
 
