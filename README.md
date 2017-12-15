@@ -62,7 +62,7 @@ Here is an example using the `YCrCb` color space and HOG parameters of `orientat
 
 #### 2. Explain how you settled on your final choice of HOG parameters.
 
-I tried various combinations of parameters and the final parameters were choosed based on the accuracy of the SVM classifier. I teste the classifier with different images and get the best results with the Ycrbcr color space, and the HOG parameters `orientations=8`, `pixels_per_cell=(8, 8)` and `cells_per_block=(2, 2)`.
+I tried various combinations of parameters and the final parameters were choosed based on the accuracy of the SVM classifier. I d the classifier with different images and get the best results with the Ycrbcr color space, and the HOG parameters `orientations=8`, `pixels_per_cell=(8, 8)` and `cells_per_block=(2, 2)`.
 
 #### 3. Describe how (and identify where in your code) you trained a classifier using your selected HOG features (and color features if you used them).
 
@@ -84,7 +84,7 @@ I decided to start with a single scale of 1.5 and ystart= 400, ystop= 656
 ![alt text][image4]
 
 
-But then I use three different scales (detect_vehicles2), the first was
+But then I use three different scales (detect_vehicles2 function), the first was
 
 ystart = 400,
 ystop = 656,
@@ -106,11 +106,11 @@ scale = 2
 The results of the each searchs is added to box_list.
 
 
-In addition, I also use deque to store the heat matrix of the last 10 frames, these matrices are averaged to compute the heat and reject outliers. 
+In addition, I also use a deque object to store the heat matrices of the last 10 frames, these matrices are averaged to compute the heat and reject outliers. 
 
 #### 2. Show some examples of test images to demonstrate how your pipeline is working.  What did you do to optimize the performance of your classifier?
 
-Ultimately I searched on thre scales using YCrCb 3-channel HOG features plus spatially binned color and histograms of color in the feature vector, which provided a nice result.  Here are some example images:
+Finally, I searched on thre scales using YCrCb 3-channel HOG features plus spatially binned color and histograms of color in the feature vector, which provided a nice result.  Here are some example images:
 
 ![alt text][image5]
 ---
@@ -134,7 +134,7 @@ Here's an example result showing the heatmap from a series of frames of video, t
 
 ![alt text][image6]
 
-Is important to note that in the detect_vehicles2 function, the heat of the last 10 frames is stored in a deque, and the final hear is computed with the mean of the heats.
+Is important to note that in the detect_vehicles2 function, the heat of the last 10 frames is stored in a deque object, and the final heat is computed with the mean of the heats.
 
 ---
 
@@ -147,7 +147,7 @@ The first problem that I faced was the selection of the HOG parameters, I have t
 
 Another problem was the detection of false positives, but with the use of heat maps this can be reduced. 
 
-The program will fail with very dark images. Another problem are the oncoming cars, the cars that appear at the corners have an incomplete image and therefore these images are harder to classify.
+With the current pipeline, the algorithm will fail with very dark images. Another problem are the oncoming cars, the cars that appear at the corners have an incomplete image and therefore these images are harder to classify.
 
 Future work:
 
