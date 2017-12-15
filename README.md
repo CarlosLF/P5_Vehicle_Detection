@@ -19,10 +19,10 @@ The goals / steps of this project are the following:
 [//]: # (Image References)
 [image1]: ./examples/car.png
 [image2]: ./examples/not_car.png
-[image22]: ./examples/HOG_example.jpg
-[image3]: ./examples/sliding_windows.jpg
+[image3]: ./examples/hog.jpg
+[image4]: ./examples/sliding_windows.jpg
 [image4]: ./examples/sliding_window.jpg
-[image5]: ./examples/bboxes_and_heat.png
+[image5]: ./examples/heat.png
 [image6]: ./examples/labels_map.png
 [image7]: ./examples/output_bboxes.png
 [video1]: ./project_video.mp4
@@ -58,28 +58,59 @@ I then explored different color spaces and different `skimage.hog()` parameters 
 
 Here is an example using the `YCrCb` color space and HOG parameters of `orientations=8`, `pixels_per_cell=(8, 8)` and `cells_per_block=(2, 2)`:
 
-
-![alt text][image2]
+![alt text][image3]
 
 #### 2. Explain how you settled on your final choice of HOG parameters.
 
-I tried various combinations of parameters and...
+I tried various combinations of parameters and the final parameters were choosed based on the accuracy of the SVM classifier. I teste the classifier with different images and get the best results with the Ycrbcr color space, and the HOG parameters `orientations=8`, `pixels_per_cell=(8, 8)` and `cells_per_block=(2, 2)`.
 
 #### 3. Describe how (and identify where in your code) you trained a classifier using your selected HOG features (and color features if you used them).
 
-I trained a linear SVM using...
+I trained a linear SVM using 
+
+svc = LinearSVC()
+svc.fit(X_train, y_train)
+
+
+The code is in cell 10 of the IPhyton notebook.
 
 ### Sliding Window Search
 
 #### 1. Describe how (and identify where in your code) you implemented a sliding window search.  How did you decide what scales to search and how much to overlap windows?
 
-I decided to search random window positions at random scales all over the image and came up with this (ok just kidding I didn't actually ;):
+I decided to start with a single scale of 1.5 and ystart= 400, ystop= 656
+
 
 ![alt text][image3]
 
+
+But then I use three different scales (detect_vehicles2), the first was
+
+ystart = 400
+ystop = 656
+scale = 1.5
+
+The second was 
+
+ystart = 400
+ystop = 500
+scale = 1
+
+And the last one was
+
+ystart = 400
+ystop = 700
+scale = 2
+
+
+The results of the each searchs is added to box_list.
+
+
+In addition, I also use deque to store the heat matrix of the last 10 frames, these matrices are averaged to compute the heat and reject outliers. 
+
 #### 2. Show some examples of test images to demonstrate how your pipeline is working.  What did you do to optimize the performance of your classifier?
 
-Ultimately I searched on two scales using YCrCb 3-channel HOG features plus spatially binned color and histograms of color in the feature vector, which provided a nice result.  Here are some example images:
+Ultimately I searched on thre scales using YCrCb 3-channel HOG features plus spatially binned color and histograms of color in the feature vector, which provided a nice result.  Here are some example images:
 
 ![alt text][image4]
 ---
@@ -87,7 +118,10 @@ Ultimately I searched on two scales using YCrCb 3-channel HOG features plus spat
 ### Video Implementation
 
 #### 1. Provide a link to your final video output.  Your pipeline should perform reasonably well on the entire project video (somewhat wobbly or unstable bounding boxes are ok as long as you are identifying the vehicles most of the time with minimal false positives.)
-Here's a [link to my video result](./project_video.mp4)
+
+Here's a [link to my video result](./project_video_output2.mp4)
+
+Here's a [dropbox link to my video result](https://www.dropbox.com/s/whj9gl1zf7kglhp/project_video_output2.mp4?dl=0)
 
 
 #### 2. Describe how (and identify where in your code) you implemented some kind of filter for false positives and some method for combining overlapping bounding boxes.
@@ -96,17 +130,11 @@ I recorded the positions of positive detections in each frame of the video.  Fro
 
 Here's an example result showing the heatmap from a series of frames of video, the result of `scipy.ndimage.measurements.label()` and the bounding boxes then overlaid on the last frame of video:
 
-### Here are six frames and their corresponding heatmaps:
+### Here are three frames and their corresponding heatmaps:
 
 ![alt text][image5]
 
-### Here is the output of `scipy.ndimage.measurements.label()` on the integrated heatmap from all six frames:
-![alt text][image6]
-
-### Here the resulting bounding boxes are drawn onto the last frame in the series:
-![alt text][image7]
-
-
+Is important to note that in the detect_vehicles2 function, the heat of the last 10 frames is stored in a deque, and the final hear is computed with the mean of the heats.
 
 ---
 
@@ -116,4 +144,8 @@ Here's an example result showing the heatmap from a series of frames of video, t
 
 Here I'll talk about the approach I took, what techniques I used, what worked and why, where the pipeline might fail and how I might improve it if I were going to pursue this project further.  
 
+Future work:
+
+* I will like to work in speed up the code
+* I also will like to add some Kalman filter to make the tracking more stable
 
