@@ -142,10 +142,16 @@ Is important to note that in the detect_vehicles2 function, the heat of the last
 
 #### 1. Briefly discuss any problems / issues you faced in your implementation of this project.  Where will your pipeline likely fail?  What could you do to make it more robust?
 
-Here I'll talk about the approach I took, what techniques I used, what worked and why, where the pipeline might fail and how I might improve it if I were going to pursue this project further.  
+
+The first problem that I faced was the selection of the HOG parameters, I have to use different colors and different parameters on the test images.  Then I faced a problem with the combination of color and spattial binning features. The problem was that I didn't normalize the feature vector.
+
+Another problem was the detection of false positives, but with the use of heat maps this can be reduced. 
+
+The program will fail with very dark images. Another problem are the oncoming cars, the cars that appear at the corners have an incomplete image and therefore these images are harder to classify.
 
 Future work:
 
 * I will like to work in speed up the code
 * I also will like to add some Kalman filter to make the tracking more stable
+* I will also like to explore the combination of histogram equalization
 
