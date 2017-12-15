@@ -81,25 +81,25 @@ The code is in cell 10 of the IPhyton notebook.
 I decided to start with a single scale of 1.5 and ystart= 400, ystop= 656
 
 
-![alt text][image3]
+![alt text][image4]
 
 
 But then I use three different scales (detect_vehicles2), the first was
 
-ystart = 400
-ystop = 656
+ystart = 400,
+ystop = 656,
 scale = 1.5
 
 The second was 
 
-ystart = 400
-ystop = 500
+ystart = 400,
+ystop = 500,
 scale = 1
 
 And the last one was
 
-ystart = 400
-ystop = 700
+ystart = 400,
+ystop = 700,
 scale = 2
 
 
