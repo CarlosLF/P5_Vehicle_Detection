@@ -112,7 +112,7 @@ In addition, I also use deque to store the heat matrix of the last 10 frames, th
 
 Ultimately I searched on thre scales using YCrCb 3-channel HOG features plus spatially binned color and histograms of color in the feature vector, which provided a nice result.  Here are some example images:
 
-![alt text][image4]
+![alt text][image5]
 ---
 
 ### Video Implementation
